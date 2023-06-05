@@ -10,7 +10,7 @@ const getAllMovies =async (request,response)=>
         response.status(500).json({message:error.message})
     }
 }
-const createANewMovie = (getMovie,async(request,response)=>
+const createANewMovie = (async(request,response)=>
 {
     //response.send("creating a new movie")
     //response.json(request.body)
@@ -29,12 +29,12 @@ const createANewMovie = (getMovie,async(request,response)=>
         response.status(500).json({message:error.message})
     }
 })
-const getAMovie =(getMovie,(request,response)=>{
+const getAMovie =(request,response)=>{
     //response.send(`Updating student with id ${request.params.id}`);
     response.status(200).json(response.movie)
-})
+}
 
-const updateAMovie =(getMovie,async(request,response)=>
+const updateAMovie =(async(request,response)=>
 {
 //response.send(`updating student with id ${request.params.id}`)
 if(request.body.moviename!=null)
@@ -66,12 +66,12 @@ catch(error){
 }
 
 })
-const deleteAMovie=(getMovie,async(request,response)=>
+const deleteAMovie=(async(request,response)=>
 {
 //response.send(`deleting student with id ${request.params.id}`)
 try{
             await response.movie.deleteOne();
-            response.json({message:`Deleted the user ${response.movie.name}`})
+            response.json({message:`Deleted the user ${response.movie.moviename}`})
         }
         catch(error){
             response.status(500).json({message:error.message})
@@ -80,7 +80,7 @@ try{
 async function getMovie(request,response,next){
     let movie
     try{
-        student=await moviesModel.findById(request.params.id)
+        movie=await moviesModel.findById(request.params.id)
         if(movie==null){
            return  response.status(404).json({message:`Cannot find movie with id ${request.params.id}`})
 
